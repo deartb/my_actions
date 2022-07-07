@@ -24,6 +24,7 @@ jobs:
         
     - name: show info
       run: |
-        watch -n1 -d ccache -s
+        tail ~/.bashrc
+        # watch -n1 -d ccache -s
         
         
