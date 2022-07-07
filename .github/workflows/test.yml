@@ -1,0 +1,29 @@
+name: use_ccache
+on: push
+jobs:
+  first_job:
+    name: first job
+    runs-on: ubuntu-latest
+    steps:
+    - name: install ccache
+      run: |
+        sudo apt-get install ccache
+        
+    - name: configure ccache
+      run: |
+        echo \#ccache >> ~/.bashrc
+        echo export CCACHE_DIR="/home/.ccache" >> ~/.bashrc
+        echo export CC="ccache gcc" >> ~/.bashrc
+        echo export CXX="ccache g++" >> ~/.bashrc
+        echo export PATH="/usr/lib/ccache:\$PATH" >> ~/.bashrc 
+        
+    - name: apply ccache
+      run: |
+        source ~/.bashrc
+        ccache -M 6G
+        
+    - name: show info
+      run: |
+        watch -n1 -d ccache -s
+        
+        
